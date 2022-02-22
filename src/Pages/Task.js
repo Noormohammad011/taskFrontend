@@ -10,7 +10,9 @@ const Task = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(`http://localhost:5000/tasks/`)
+      const result = await axios(
+        `https://whispering-brushlands-19407.herokuapp.com/tasks/`
+      )
 
       setData(result.data)
     }

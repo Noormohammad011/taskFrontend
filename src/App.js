@@ -7,6 +7,7 @@ import Tasks from './Pages/Tasks';
 import AuthProvider from './context/AuthProvider'
 import Header from './components/Header';
 import Task from './Pages/Task';
+import NotFoundPage from './Pages/NotFoundPage'
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
             ></Route>
 
             <Route path='/login' element={<Login />}></Route>
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Router>
       </AuthProvider>

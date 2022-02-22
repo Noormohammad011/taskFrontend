@@ -19,7 +19,7 @@ const Tasks = () => {
     }
     console.log(task)
 
-    fetch('http://localhost:5000/tasks', {
+    fetch('https://whispering-brushlands-19407.herokuapp.com/tasks', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -47,8 +47,8 @@ const Tasks = () => {
   return (
     <>
       <h1 className='text-center my-5'>Task Creation</h1>
-      <form className='row g-3' onSubmit={handleTaskSubmit}>
-        <div className='col-md-6 offset-md-3 mx-2'>
+      <form className='row g-3 mx-2' onSubmit={handleTaskSubmit}>
+        <div className='col-md-6 offset-md-3 '>
           <label for='formGroupExampleInput' className='form-label'>
             Text
           </label>
@@ -56,13 +56,13 @@ const Tasks = () => {
             type='text'
             className='form-control'
             id='formGroupExampleInput'
-            placeholder='Example input placeholder'
+            placeholder='Input Text'
             value={text}
             onChange={(e) => settext(e.target.value)}
           />
         </div>
 
-        <div className='col-md-6 offset-md-3 mx-2'>
+        <div className='col-md-6 offset-md-3'>
           <label htmlFor='inputZip' className='form-label'>
             Time Zone
           </label>
@@ -71,16 +71,16 @@ const Tasks = () => {
             onChange={setSelectedTimezone}
           />
         </div>
-        <div className='col-md-6 offset-md-3 mx-2'>
+        <div className='col-md-6 offset-md-3'>
           <label htmlFor='inputZip' className='form-label'>
             Time Picker
           </label>
           <DateTimePicker onChange={onChange} value={value} />
         </div>
 
-        <div className='col-md-6 offset-md-3 mx-2'>
+        <div className='col-md-6 offset-md-3'>
           <button type='submit' className='btn btn-primary'>
-            Submit
+            Add Task
           </button>
         </div>
       </form>

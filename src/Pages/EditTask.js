@@ -1,26 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TimezoneSelect from 'react-timezone-select'
 import DateTimePicker from 'react-datetime-picker'
+import { useParams, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import useAuth from '../hooks/useAuth'
-const Tasks = () => {
-  const { user } = useAuth()
+
+const EditTask = () => {
+  const [data, setData] = useState({})
+  const { id } = useParams()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const url = `http://localhost:5000/tasks/${id}`
+    fetch(url)
+      .then((res) => res.json())
+      .then((d) => setData(d))
+  }, [id])
+
   const [selectedTimezone, setSelectedTimezone] = useState({})
   const [value, onChange] = useState(new Date())
   const [text, settext] = useState('')
 
   const handleTaskSubmit = (e) => {
-    // collect data
+    e.preventDefault()
+
     const task = {
       time: value,
       timezone: selectedTimezone,
       text: text,
-      user: user.email,
     }
-  
 
-    fetch('http://localhost:5000/tasks', {
-      method: 'POST',
+    const url = `http://localhost:5000/tasks/${id}`
+    fetch(url, {
+      method: 'PUT',
       headers: {
         'content-type': 'application/json',
       },
@@ -28,25 +39,23 @@ const Tasks = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.insertedId) {
+        if (data.modifiedCount > 0) {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Task added successfully',
+            title: 'Task updated successfully',
             showConfirmButton: false,
             timer: 1500,
           })
-          setSelectedTimezone({})
-          settext('')
-          onChange(new Date())
+          setData({})
+          e.target.reset()
+          navigate('/task')
         }
       })
-
-    e.preventDefault()
   }
   return (
     <>
-      <h1 className='text-center my-5'>Task Creation</h1>
+      <h1 className='text-center my-5'>Edit Task</h1>
       <form className='row g-3 mx-2' onSubmit={handleTaskSubmit}>
         <div className='col-md-6 offset-md-3 '>
           <label htmlFor='formGroupExampleInput' className='form-label'>
@@ -57,7 +66,7 @@ const Tasks = () => {
             className='form-control'
             id='formGroupExampleInput'
             placeholder='Input Text'
-            value={text}
+            value={text || '' || data.text}
             onChange={(e) => settext(e.target.value)}
           />
         </div>
@@ -80,11 +89,11 @@ const Tasks = () => {
 
         <div className='col-md-6 offset-md-3'>
           <button
-            disabled={!text || !value || !selectedTimezone }
+            disabled={!text || !value || !selectedTimezone}
             type='submit'
             className='btn btn-primary'
           >
-            Add Task
+            Updata Task
           </button>
         </div>
       </form>
@@ -92,4 +101,4 @@ const Tasks = () => {
   )
 }
 
-export default Tasks
+export default EditTask

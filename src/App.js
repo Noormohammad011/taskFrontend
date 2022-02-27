@@ -7,6 +7,7 @@ import Tasks from './Pages/Tasks';
 import AuthProvider from './context/AuthProvider'
 import Header from './components/Header';
 import Task from './Pages/Task';
+import EditTask from './Pages/EditTask';
 import NotFoundPage from './Pages/NotFoundPage'
 
 const App = () => {
@@ -29,6 +30,14 @@ const App = () => {
               element={
                 <PrivateRoute>
                   <Task />
+                </PrivateRoute>
+              }
+            ></Route>
+            <Route
+              path='/task/:id/edit'
+              element={
+                <PrivateRoute>
+                  <EditTask/>
                 </PrivateRoute>
               }
             ></Route>

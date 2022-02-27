@@ -10,15 +10,20 @@ const Task = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        `https://whispering-brushlands-19407.herokuapp.com/tasks/`
-      )
+      const result = await axios(`http://localhost:5000/tasks/`)
 
       setData(result.data)
     }
 
     fetchData()
   }, [])
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure')) {
+      await axios.delete(`http://localhost:5000/tasks/${id}`)
+      setData(data.filter((item) => item._id !== id))
+    }
+  }
 
   return (
     <div className='container'>
@@ -34,6 +39,7 @@ const Task = () => {
                 <th>TEXT</th>
                 <th>TIME</th>
                 <th>TIMEZONE</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -46,6 +52,23 @@ const Task = () => {
                       <td>{x.text}</td>
                       <td>{moment(x.time).format('MMM Do YY')}</td>
                       <td>{x.timezone.value}</td>
+                      <td>
+                        <Link to={`/task/${x._id}/edit`}>
+                          <button
+                            type='button'
+                            className='btn btn-sm btn-light'
+                          >
+                            <i className='fas fa-edit'></i>
+                          </button>
+                        </Link>
+                        <button
+                          type='button'
+                          className='btn btn-sm btn-danger'
+                          onClick={() => handleDelete(x._id)}
+                        >
+                          <i className='fas fa-trash'></i>
+                        </button>
+                      </td>
                     </tr>
                   ))}
             </tbody>

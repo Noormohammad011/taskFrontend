@@ -10,7 +10,9 @@ const Task = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(`http://localhost:5000/tasks/`)
+      const result = await axios(
+        `https://whispering-brushlands-19407.herokuapp.com/tasks/`
+      )
 
       setData(result.data)
     }
@@ -20,7 +22,9 @@ const Task = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure')) {
-      await axios.delete(`http://localhost:5000/tasks/${id}`)
+      await axios.delete(
+        `https://whispering-brushlands-19407.herokuapp.com/tasks/${id}`
+      )
       setData(data.filter((item) => item._id !== id))
     }
   }

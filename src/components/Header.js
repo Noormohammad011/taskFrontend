@@ -67,5 +67,3 @@ const Header = () => {
 
 export default Header
 
-// http://localhost:5000/
-//http://localhost:5000/

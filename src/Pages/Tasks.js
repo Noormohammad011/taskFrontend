@@ -17,9 +17,8 @@ const Tasks = () => {
       text: text,
       user: user.email,
     }
-  
 
-    fetch('http://localhost:5000/tasks', {
+    fetch('https://whispering-brushlands-19407.herokuapp.com/tasks', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -80,7 +79,7 @@ const Tasks = () => {
 
         <div className='col-md-6 offset-md-3'>
           <button
-            disabled={!text || !value || !selectedTimezone }
+            disabled={!text || !value || !selectedTimezone}
             type='submit'
             className='btn btn-primary'
           >

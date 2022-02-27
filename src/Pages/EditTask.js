@@ -10,7 +10,7 @@ const EditTask = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const url = `http://localhost:5000/tasks/${id}`
+    const url = `https://whispering-brushlands-19407.herokuapp.com/tasks/${id}`
     fetch(url)
       .then((res) => res.json())
       .then((d) => setData(d))
@@ -29,7 +29,7 @@ const EditTask = () => {
       text: text,
     }
 
-    const url = `http://localhost:5000/tasks/${id}`
+    const url = `https://whispering-brushlands-19407.herokuapp.com/tasks/${id}`
     fetch(url, {
       method: 'PUT',
       headers: {
